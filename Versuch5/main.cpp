@@ -172,7 +172,7 @@ int main()
 				std::string adresse = "";
 
 				std::cout << "Bitte geben sie die Daten für den Studenten ein.\nName: ";
-				getline(std::cin, name);    // ganze Zeile einlesen inklusive aller Leerzeichen
+				getline(std::cin, name);  
 
 				std::cout << "Geburtsdatum: ";
 				getline(std::cin, geburtstag);
