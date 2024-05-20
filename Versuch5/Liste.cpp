@@ -11,6 +11,12 @@ Liste::Liste(): front(nullptr), back(nullptr)
 {
 }
 
+/**
+* @brief Hinzufuegen eines neues Listenelements am Anfang der Liste
+*
+*@param pData Zeiger auf ein Objekt der Klasse Student
+*@return void
+*/
 void Liste::pushFront(Student pData)
 {
 	ListenElement* neuesElement = new ListenElement(pData, front, nullptr);
