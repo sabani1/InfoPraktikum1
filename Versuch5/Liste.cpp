@@ -29,6 +29,8 @@ void Liste::pushFront(Student pData)
 	else
 	{
 		front->setPrev(neuesElement);
+		neuesElement->setPrev(nullptr);
+		neuesElement->setNext(front);
 		front = neuesElement;
 	}
 }
@@ -51,6 +53,8 @@ void Liste::pushBack(Student pData)
     else
     {
         back->setNext(neuesElement);
+	neuesElement->setPrev(back);
+	neuesElement->setNext(nullptr);
         back = neuesElement;
     }
 }
