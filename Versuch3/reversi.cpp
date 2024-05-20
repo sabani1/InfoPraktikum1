@@ -377,7 +377,7 @@ void spielen(const int spielerTyp[2])
     // solange noch Zuege bei einem der beiden Spieler moeglich sind
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
-    for(int i=1; i<=67; i++)
+    for(int i=1; i<=99; i++)
     {
 		std::cout<<"Runde: "<<i<<std::endl;
 		if(moeglicheZuege(spielfeld, aktuellerSpieler) != 0 && spielerTyp[aktuellerSpieler-1] == 1) //Zug ist möglich
