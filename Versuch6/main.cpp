@@ -40,13 +40,13 @@ int main()
     {
         std::cout << "\nMenue:" << std::endl
                   << "-----------------------------" << std::endl
-                  << "(1): Datenelement hinten hinzufuegen" << std::endl //fertig
-                  << "(2): Datenelement vorne entfernen" << std::endl //fertig
-                  << "(3): Datenbank ausgeben" << std::endl //fertig
-		  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl //fertig
-		  << "(5): Datenelement löschen"<<std::endl //fertig
-		  << "(6): Datenelement vorne hinzufügen"<<std::endl //fertig
-		  << "(7): Datenelement hinten entfernen"<<std::endl //fertig
+                  << "(1): Datenelement hinten hinzufuegen" << std::endl 
+                  << "(2): Datenelement vorne entfernen" << std::endl
+                  << "(3): Datenbank ausgeben" << std::endl
+		  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl 
+		  << "(5): Datenelement löschen"<<std::endl
+		  << "(6): Datenelement vorne hinzufügen"<<std::endl 
+		  << "(7): Datenelement hinten entfernen"<<std::endl
 		  << "(8): Daten aus einer Datei einlesen"<<std::endl
 		  << "(9): Daten in eine Datei sichern"<<std::endl
                   << "(0): Beenden" << std::endl;
