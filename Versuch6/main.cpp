@@ -40,15 +40,15 @@ int main()
     {
         std::cout << "\nMenue:" << std::endl
                   << "-----------------------------" << std::endl
-                  << "(1): Datenelement hinten hinzufuegen" << std::endl 
+                  << "(1): Datenelement hinten hinzufuegen" << std::endl
                   << "(2): Datenelement vorne entfernen" << std::endl
                   << "(3): Datenbank ausgeben" << std::endl
-		  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl 
-		  << "(5): Datenelement löschen"<<std::endl
-		  << "(6): Datenelement vorne hinzufügen"<<std::endl 
-		  << "(7): Datenelement hinten entfernen"<<std::endl
-		  << "(8): Daten aus einer Datei einlesen"<<std::endl
-		  << "(9): Daten in eine Datei sichern"<<std::endl
+				  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl
+				  << "(5): Datenelement löschen"<<std::endl
+				  << "(6): Datenelement vorne hinzufügen"<<std::endl
+				  << "(7): Datenelement hinten entfernen"<<std::endl
+				  << "(8): Daten aus einer Datei einlesen"<<std::endl
+				  << "(9): Daten in eine Datei sichern"<<std::endl
                   << "(0): Beenden" << std::endl;
         std::cin >> abfrage;
         std::cin.ignore(10, '\n');
@@ -127,9 +127,9 @@ int main()
             		std::cout<<"Inhalt der Liste in umgekehrter Reihenfolge: "<<std::endl;
             		for(revIt = studentenListe.rbegin(); revIt != studentenListe.rend(); revIt++){
             			std::cout << revIt->getName() << ", ";
-				std::cout << revIt->getMatNr() << ", ";
-				std::cout << revIt->getGeburtstag() << ", ";
-				std::cout << revIt->getAdresse() << std::endl;
+						std::cout << revIt->getMatNr() << ", ";
+						std::cout << revIt->getGeburtstag() << ", ";
+						std::cout << revIt->getAdresse() << std::endl;
             		}
 
             	}
@@ -144,7 +144,7 @@ int main()
             	if(!studentenListe.empty())
             	{
             		unsigned int matNr;
-            		int gesucht;
+            		int gesucht = -1;
             		std::cout<<"Bitte die Matrikelnummer vom Studenten eingeben, der gelöscht werden soll: "<<std::endl;
             		std::cin>>matNr;
 
@@ -152,11 +152,6 @@ int main()
             			if(studentenListe[i].getMatNr() == matNr)
             			{
             				gesucht = i;
-            			}
-
-            			else
-            			{
-            				gesucht = -1;
             			}
             		}
 
@@ -166,6 +161,8 @@ int main()
             		}
             		else
             		{
+            			std::cout<<"Der folgende Student wurde gelöscht:"<<std::endl;
+            			studentenListe[gesucht].ausgabe();
             			studentenListe.erase(studentenListe.begin()+gesucht);
             		}
 
