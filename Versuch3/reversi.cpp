@@ -175,7 +175,7 @@ bool aufSpielfeld(const int posX, const int posY)
  * @param aktuellerSpieler Der aktuelle Spieler
  * @param posX Zu ueberpruefende Spalte
  * @param posY Zu ueberpruefende Zeile
- * @return
+ * @return true, falls Zug gültig ist, sonst false
  */
 bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler, const int posX, const int posY)
 {
@@ -228,12 +228,13 @@ bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSp
 
 
 /**
- * @brief Funktion, die einen Zug ausfuehrt
+ * @brief Funktion, die einen Zug ausfuehrt und einen Stein auf dem Spielfeld platziert
  *
  * @param spielfeld Das aktuelle Spielfeld
  * @param aktuellerSpieler Der aktuelle Spieler
- * @param posX Die aktuelle Spalte
- * @param posY Die aktuelle Zeile
+ * @param posX Die Spalte des Zuges
+ * @param posY Die Zeile des Zuges
+ * @return void
  */
 void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler, const int posX, const int posY)
 {
@@ -290,6 +291,7 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
  *
  * @param spielfeld Das aktuelle Spielfeld
  * @param aktuellerSpieler Der aktuelle Spieler
+ * @return Die Anzahl der möglichen Züge des aktuellen Spielers
  */
 int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler)
 {
@@ -318,7 +320,13 @@ int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuelle
     return counter;
 }
 
-
+/**
+ * @brief Ein menschlicher Zug wird abgefragt und ausgeführt
+ *
+ * @param spielfeld Das aktuelle Spielfeld
+ * @param aktuellerSpieler Der aktuelle Spieler
+ * @return false, falls aktuelle moeglicheZuege = 0 ist, sonst wird der Spieler nach dem Zug gefragt, der ausgeführt wird und true wiedergegeben
+ */
 bool menschlicherZug(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler)
 {
     if (moeglicheZuege(spielfeld, aktuellerSpieler) == 0)
@@ -363,7 +371,12 @@ bool menschlicherZug(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpi
     return true;
 }
 
-
+/**
+ * @brief Spiel wird ausgeführt
+ *
+ * @param spielerTyp Feld mit den Spielertypen der zwei Spieler
+ * @return void
+ */
 void spielen(const int spielerTyp[2])
 {
     int spielfeld[GROESSE_Y][GROESSE_X];
@@ -377,62 +390,22 @@ void spielen(const int spielerTyp[2])
     // solange noch Zuege bei einem der beiden Spieler moeglich sind
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
-    for(int i=1; i<=99; i++)
+    for(int i=0; i<=99; i++)
     {
 		std::cout<<"Runde: "<<i<<std::endl;
 		if(moeglicheZuege(spielfeld, aktuellerSpieler) != 0 && spielerTyp[aktuellerSpieler-1] == 1) //Zug ist möglich
 		{
-			char eingabeX;
-			int eingabeY;
-
-			std::cout<<"Spieler 1 hat das Symbol: X\n"<<"Spieler 2 hat das Symbol: O\n"<<std::endl;
-			while(true)
-			{
-				std::cout<<"Spieler "<<aktuellerSpieler<<" ist dran!"<<std::endl;
-				std::cout<<"Wo möchten Sie Ihren Stein platzieren?"<<std::endl;
-				std::cout<<"X-Koordinate:"<<std::endl;
-				std::cin>>eingabeX;
-				int posX = (int)eingabeX%32-1;
-				std::cout<<"Y-Koordinate: "<<std::endl;
-				std::cin>>eingabeY;
-				int posY = eingabeY-1;
-
-				if(zugGueltig(spielfeld, aktuellerSpieler, posX, posY))
-				{
-					zugAusfuehren(spielfeld, aktuellerSpieler, posX, posY);
-					break;
-				}
-
-				else
-				{
-					std::cout<<"Die Position ist nicht gültig! Bitte nochmal neue Koordinaten eingeben!\n"<<std::endl;
-				}
-			}
+			menschlicherZug(spielfeld, aktuellerSpieler);
 			zeigeSpielfeld(spielfeld);
-
-			if(aktuellerSpieler == 1)
-			{
-				aktuellerSpieler++;
-			}
-			else
-			{
-				aktuellerSpieler--;
-			}
-
+			aktuellerSpieler = 3 - aktuellerSpieler;
 		}
 
-		else if(moeglicheZuege(spielfeld, aktuellerSpieler) != 0 && spielerTyp[aktuellerSpieler-1] == 2)
+
+		else if(moeglicheZuege(spielfeld, aktuellerSpieler) != 0 && spielerTyp[aktuellerSpieler-1] == 2) //Computer führt Zug aus
 		{
 			computerZug(spielfeld, aktuellerSpieler);
 			zeigeSpielfeld(spielfeld);
-			if(aktuellerSpieler == 1)
-			{
-				aktuellerSpieler++;
-			}
-			else
-			{
-				aktuellerSpieler--;
-			}
+			aktuellerSpieler = 3 - aktuellerSpieler;
 		}
 
 		else if(moeglicheZuege(spielfeld, aktuellerSpieler) == 0 && moeglicheZuege(spielfeld, (3-aktuellerSpieler)) == 0) //Spieler 1 und 2 haben beide keine Züge mehr
@@ -441,17 +414,10 @@ void spielen(const int spielerTyp[2])
 			break;
 		}
 
-		else //Der aktuelle Spieler hat keine Züge
+		else //Der aktuelle Spieler hat keine möglichen Züge
 		{
 			std::cout<<"Sie haben keine möglichen Züge und müssen die Runde aussetzen. Der andere Spieler ist jetzt dran.\n"<<std::endl;
-			if(aktuellerSpieler == 1)
-			{
-				aktuellerSpieler++;
-			}
-			else
-			{
-				aktuellerSpieler--;
-			}
+			aktuellerSpieler = 3 - aktuellerSpieler;
 		}
     }
 
@@ -462,29 +428,28 @@ void spielen(const int spielerTyp[2])
     		std::cout<<"Gleichstand!"<<std::endl;
     		break;
     	case 1:
-    		std::cout<<"Spieler 1 hat gewonnen!"<<std::endl;
+    		std::cout<<"Spieler 1 gewinnt!"<<std::endl;
     		break;
     	case 2:
-    		std::cout<<"Spieler 2 hat gewonnen!"<<std::endl;
+    		std::cout<<"Spieler 2 gewinnt!"<<std::endl;
     		break;
     }
 }
 
 /**
  * @brief Funktion zum Vergleichen von zwei gleichgroßen, zweidimensionalen Arrays
- * @return Vergleicht die Reihen und Spalten von zwei Arrays und liefert false wenn ein Element anders ist
- * und sonst true
  *
  * @param arr1 Erstes Array, das verglichen werden soll
  * @param arr2 Zweites Array, das verglichen werden soll
  * @param x Anzahl der Spalten
- * @param y Anzahl der Reihen
+ * @param y Anzahl der Zeilen
+ * @return false wenn ein Element anders ist, sonst true
  */
 bool vglArray(int arr1[GROESSE_Y][GROESSE_X], const int arr2[GROESSE_Y][GROESSE_X], int x, int y)
 {
 	for(int j=0; j<x; j++)
 	{
-		for(int i = 0; i < y; i++)
+		for(int i = 0; i < y; i++) //Vergleicht jedes Element miteinander
 		{
 			if(arr1[i][j] != arr2[i][j])
 			{
