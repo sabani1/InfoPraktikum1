@@ -43,12 +43,12 @@ int main()
                   << "(1): Datenelement hinten hinzufuegen" << std::endl //fertig
                   << "(2): Datenelement vorne entfernen" << std::endl //fertig
                   << "(3): Datenbank ausgeben" << std::endl //fertig
-				  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl //fertig
-				  << "(5): Datenelement löschen"<<std::endl //fertig
-				  << "(6): Datenelement vorne hinzufügen"<<std::endl //fertig
-				  << "(7): Datenelement hinten entfernen"<<std::endl //fertig
-				  << "(8): Daten aus einer Datei einlesen"<<std::endl
-				  << "(9): Daten in eine Datei sichern"<<std::endl
+		  << "(4): Datenbank in umgekehrter Reihenfolge ausgeben"<<std::endl //fertig
+		  << "(5): Datenelement löschen"<<std::endl //fertig
+		  << "(6): Datenelement vorne hinzufügen"<<std::endl //fertig
+		  << "(7): Datenelement hinten entfernen"<<std::endl //fertig
+		  << "(8): Daten aus einer Datei einlesen"<<std::endl
+		  << "(9): Daten in eine Datei sichern"<<std::endl
                   << "(0): Beenden" << std::endl;
         std::cin >> abfrage;
         std::cin.ignore(10, '\n');
@@ -127,9 +127,9 @@ int main()
             		std::cout<<"Inhalt der Liste in umgekehrter Reihenfolge: "<<std::endl;
             		for(revIt = studentenListe.rbegin(); revIt != studentenListe.rend(); revIt++){
             			std::cout << revIt->getName() << ", ";
-						std::cout << revIt->getMatNr() << ", ";
-						std::cout << revIt->getGeburtstag() << ", ";
-						std::cout << revIt->getAdresse() << std::endl;
+				std::cout << revIt->getMatNr() << ", ";
+				std::cout << revIt->getGeburtstag() << ", ";
+				std::cout << revIt->getAdresse() << std::endl;
             		}
 
             	}
