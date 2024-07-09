@@ -172,7 +172,7 @@ void MainWindow::on_pushButton_add_city_clicked()
                 continue;
             }
 
-            City city1 = City(name, x, y);
+            City *city1 = new City(name, x, y);
             map.addCity(&city1);
             break;
         }
@@ -342,7 +342,7 @@ void MainWindow::on_pushButton_add_street_clicked()
         City* city1 = map.findCity(stadtname1);
         City* city2 = map.findCity(stadtname2);
 
-        Street street1 = Street(city1, city2);
+        Street *street1 = new Street(city1, city2);
         map.addStreet(&street1);
         street1.draw(scene);
     }
